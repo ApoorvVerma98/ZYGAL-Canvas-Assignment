@@ -3,16 +3,15 @@
   <head>
     <!-- Hey there! Welcome to the ZYGAL's Canvas Art Project! -->
     <title>ZYGAL Canvas Art - 16x34</title>
-
+    
     <!-- Linking to our external CSS file for custom styles -->
     <link rel="stylesheet" href="styles.css" />
   </head>
-
   <body>
     <div id="canvasWrapper">
       <!-- This is our magical canvas where we'll create the masterpiece! -->
       <canvas id="drawingCanvas" width="16" height="34"></canvas>
-
+      
       <!-- Check it out! This button lets people save and share our art! -->
       <button onclick="downloadDrawingCanvas()">Download</button>
     </div>
@@ -30,7 +29,7 @@
 
         // Now, our character "A" will shine bright in a warm orange color!
         context.fillStyle = "#FFA500"; // Custom font color
-        context.font = "bold 24px Verdana, sans-serif"; // Custom font (Verdana) and size (reduced to 24px)
+        context.font = "bold 30px 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"; // Custom font and size
         context.textAlign = "center";
         context.textBaseline = "middle";
 
@@ -40,12 +39,53 @@
 
       // Woah! This function converts our canvas art into mesmerizing hex colors!
       function convertCanvasDataToHex() {
-        // ... (previous function code)
+
+        var canvas = document.getElementById("drawingCanvas");
+        var context = canvas.getContext("2d");
+
+        // We'll fetch the colors of all the pixels in our canvas artwork
+        var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+        var pixels = imageData.data;
+
+        // Hold on! We need a secret list to store these beautiful hex colors
+        var hexData = [];
+
+        // Now, let's wave our magic wand and convert each pixel color to hex!
+        for (var i = 0; i < pixels.length; i += 4) {
+          // This formula is pure magic! It transforms RGBA to a fascinating hex color
+          var hex =
+            "#" +
+            (
+              (1 << 24) |
+              (pixels[i] << 16) |
+              (pixels[i + 1] << 8) |
+              pixels[i + 2]
+            )
+              .toString(16)
+              .slice(1);
+          hexData.push(hex);
+        }
+
+        // Voilà! We shall reveal the mesmerizing hex colors as a comma-separated list
+        return hexData.join(", ");
       }
 
       // Listen up! This function lets everyone save our breathtaking canvas artwork
       function downloadDrawingCanvas() {
-        // ... (previous function code)
+        // Hold your breath! We need the list of magical hex colors first
+        var hexData = convertCanvasDataToHex();
+
+        // Okay, here comes the real magic! We'll create a special link for the download
+        var downloadLink = document.createElement("a");
+
+        // This link carries the enchanting hex colors as plain text
+        downloadLink.href = "data:text/plain," + encodeURIComponent(hexData);
+
+        // You know what's cool? We give our art a memorable name for the download
+        downloadLink.download = "ZYGAL_Canvas_Assignment.txt";
+
+        // Alright! Time to spread the magic! We'll click the link and start the download
+        downloadLink.click();
       }
 
       // Let's start this adventure! We'll unveil the mighty "A" on the canvas right away
