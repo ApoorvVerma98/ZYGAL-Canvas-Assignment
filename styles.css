@@ -1,0 +1,34 @@
+body {
+  background-color: #f0f0f0;
+  font-family: Verdana, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+#drawingCanvas {
+  margin-bottom: 10px;
+}
+
+#canvasWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+button {
+  background-color: #ffa500;
+  color: #45a0a2;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.4s, color 0.3s;
+}
+
+button:hover {
+  background-color: #45a0a2;
+  color: #ffa500;
+}
