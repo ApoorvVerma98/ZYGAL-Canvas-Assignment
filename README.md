@@ -6,7 +6,7 @@ Click [here](https://zygal-canvas-16x34-apoorvverma98.onrender.com) to view the 
 
 ## Overview
 
-Welcome to the ZYGAL Canvas Art project! This repository contains a simple HTML page that generates a 16x34 pixel canvas with the letter "A" drawn on it. It provides a "Download" button that allows you to save the canvas data in matrix form as a text file.
+Welcome to the ZYGAL Canvas Art project! This repository contains a simple HTML page that generates a 16x34 pixel canvas with the letter "A" drawn on it. It provides a "Download" button that allows you to save the canvas data in hex format form as a text file.
 
 ## How to Use
 
