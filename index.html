@@ -7,45 +7,45 @@
   <body>
     <div id="canvasWrapper">
       <canvas id="drawingCanvas" width="16" height="34"></canvas>
-      <!-- Button to trigger the download function -->
+      <!-- button to trigger the download function -->
       <button onclick="downloadMatrixData()">Download</button>
     </div>
 
     <script>
-      // Function to draw the letter "A" on the canvas
+      // function to draw the letter "A" on the canvas
       function drawCharacterOnCanvas() {
-        // Get the canvas element and its 2D context
+        // get the canvas element and its 2D context
         var canvas = document.getElementById("drawingCanvas");
         var context = canvas.getContext("2d");
 
-        // Set the background color of the canvas to teal (#45A0A2)
+        // set the background color of the canvas to teal (#45A0A2)
         context.fillStyle = "#45A0A2";
         context.fillRect(0, 0, canvas.width, canvas.height);
 
-        // Set the color of the letter to orange (#FFA500) and its font
+        // set the color of the letter to orange (#FFA500) and its font
         context.fillStyle = "#FFA500";
         context.font =
           "bold 30px 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
 
-        // Set the text alignment and baseline to center, so the letter will be in the middle
+        // set the text alignment and baseline to center, so the letter will be in the middle
         context.textAlign = "center";
         context.textBaseline = "middle";
 
-        // Draw the letter "A" in the center of the canvas
+        // draw the letter "A" in the center of the canvas
         context.fillText("A", canvas.width / 2, canvas.height / 2);
       }
 
-      // Function to convert canvas pixel data to hexadecimal colors
+      // function to convert canvas pixel data to hexadecimal colors
       function convertCanvasDataToHex() {
-        // Get the canvas element and its 2D context
+        // get the canvas element and its 2D context
         var canvas = document.getElementById("drawingCanvas");
         var context = canvas.getContext("2d");
 
-        // Get the pixel data of the canvas
+        // get the pixel data of the canvas
         var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
         var pixels = imageData.data;
 
-        // Convert each pixel's RGB values to hexadecimal format
+        // convert each pixel's RGB values to hexadecimal format
         var hexData = [];
 
         for (var i = 0; i < pixels.length; i += 4) {
@@ -65,44 +65,46 @@
         return hexData;
       }
 
-      // Function to convert the canvas data to a matrix form
+      // function to convert the canvas data to a matrix form
       function convertToMatrixForm() {
-        // Get the hexadecimal color data of the canvas
+        // get the hexadecimal color data of the canvas
         const hexData = convertCanvasDataToHex();
 
-        // Create a matrix array to store the data
+        // create a matrix array to store the data
         const matrix = [];
 
-        // Split the hexadecimal color data into 16x16 rows and form the matrix
+        // split the hexadecimal color data into 16x16 rows and form the matrix
         for (let i = 0; i < 34; i++) {
           matrix[i] =
             "0x" + hexData.slice(i * 16, (i + 1) * 16).join(", 0x") + ", ";
         }
 
-        return matrix.join("\n"); // Join the rows of the matrix with a newline character
+        return matrix.join("\n"); // join the rows of the matrix with a newline character
       }
 
-      // Function to trigger the download of the matrix data
+      // function to trigger the download of the matrix data
       function downloadMatrixData() {
-        // Convert the canvas data to matrix form
+        // convert the canvas data to matrix form
         var matrixData = convertToMatrixForm();
 
-        // Create a new link element to trigger the download
+        // create a new link element to trigger the download
         var downloadLink = document.createElement("a");
 
-        // Create a Blob containing the matrix data in text/plain format
+        // create a Blob containing the matrix data in text/plain format
         var blob = new Blob([matrixData], { type: "text/plain" });
 
-        // Set the URL of the Blob as the link's href and set the filename for download
+        // set the URL of the Blob as the link's href and set the filename for download
         downloadLink.href = URL.createObjectURL(blob);
-        downloadLink.download = "ZYGAL_Canvas_Matrix.txt";
+        downloadLink.download = "ZYGAL_Canvas_16x34px.txt";
 
-        // Simulate a click on the link to trigger the download
+        // simulate a click on the link to trigger the download
         downloadLink.click();
       }
 
-      // Draw the letter "A" on the canvas when the page loads
+      // draw the letter "A" on the canvas when the page loads
       drawCharacterOnCanvas();
     </script>
   </body>
 </html>
+
+<!-- thanks for reading the comments I hope it makes  easier to understand the snippet -->
