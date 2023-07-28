@@ -12,7 +12,6 @@ body {
   margin-bottom: 10px;
 }
 
-
 #canvasWrapper {
   display: flex;
   flex-direction: column;
@@ -27,9 +26,21 @@ button {
   cursor: pointer;
   border-radius: 4px;
   transition: background-color 0.4s, color 0.3s;
+  /* Add shadow styles */
+  box-shadow: 0px 2px 4px rgba(1, 4, 3, 0.9);
+  display: flex; /* Added to create a flex container */
+  align-items: center; /* Center icon vertically */
 }
 
 button:hover {
   background-color: #45a0a2;
   color: #ffa500;
+}
+
+/* Icon styles */
+.icon {
+  margin-left: 5px; /* Add some spacing between text and icon */
+  font-size: 20px;
+  /* Slightly move up the icon */
+  margin-top: -2px;
 }
