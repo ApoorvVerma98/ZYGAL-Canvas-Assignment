@@ -1,58 +1,54 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <!-- Hey there! Welcome to the ZYGAL's Canvas Art Project! -->
     <title>ZYGAL Canvas Art - 16x34</title>
-    
-    <!-- Linking to our external CSS file for custom styles -->
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div id="canvasWrapper">
-      <!-- This is our magical canvas where we'll create the masterpiece! -->
       <canvas id="drawingCanvas" width="16" height="34"></canvas>
-      
-      <!-- Check it out! This button lets people save and share our art! -->
-      <button onclick="downloadDrawingCanvas()">Download</button>
+      <!-- Button to trigger the download function -->
+      <button onclick="downloadMatrixData()">Download</button>
     </div>
 
     <script>
-      // This awesome function draws our special character on the canvas!
+      // Function to draw the letter "A" on the canvas
       function drawCharacterOnCanvas() {
-        // First, let's grab the canvas and the super cool "context" brush!
+        // Get the canvas element and its 2D context
         var canvas = document.getElementById("drawingCanvas");
         var context = canvas.getContext("2d");
 
-        // Let's fill our canvas with a calming teal color!
-        context.fillStyle = "#45A0A2"; // Custom background color
+        // Set the background color of the canvas to teal (#45A0A2)
+        context.fillStyle = "#45A0A2";
         context.fillRect(0, 0, canvas.width, canvas.height);
 
-        // Now, our character "A" will shine bright in a warm orange color!
-        context.fillStyle = "#FFA500"; // Custom font color
-        context.font = "bold 30px 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"; // Custom font and size
+        // Set the color of the letter to orange (#FFA500) and its font
+        context.fillStyle = "#FFA500";
+        context.font =
+          "bold 30px 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+
+        // Set the text alignment and baseline to center, so the letter will be in the middle
         context.textAlign = "center";
         context.textBaseline = "middle";
 
-        // Ta-da! Our "A" will proudly appear in the center of the canvas!
+        // Draw the letter "A" in the center of the canvas
         context.fillText("A", canvas.width / 2, canvas.height / 2);
       }
 
-      // Woah! This function converts our canvas art into mesmerizing hex colors!
+      // Function to convert canvas pixel data to hexadecimal colors
       function convertCanvasDataToHex() {
-
+        // Get the canvas element and its 2D context
         var canvas = document.getElementById("drawingCanvas");
         var context = canvas.getContext("2d");
 
-        // We'll fetch the colors of all the pixels in our canvas artwork
+        // Get the pixel data of the canvas
         var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
         var pixels = imageData.data;
 
-        // Hold on! We need a secret list to store these beautiful hex colors
+        // Convert each pixel's RGB values to hexadecimal format
         var hexData = [];
 
-        // Now, let's wave our magic wand and convert each pixel color to hex!
         for (var i = 0; i < pixels.length; i += 4) {
-          // This formula is pure magic! It transforms RGBA to a fascinating hex color
           var hex =
             "#" +
             (
@@ -66,32 +62,47 @@
           hexData.push(hex);
         }
 
-        // Voilà! We shall reveal the mesmerizing hex colors as a comma-separated list
-        return hexData.join(", ");
+        return hexData;
       }
 
-      // Listen up! This function lets everyone save our breathtaking canvas artwork
-      function downloadDrawingCanvas() {
-        // Hold your breath! We need the list of magical hex colors first
-        var hexData = convertCanvasDataToHex();
+      // Function to convert the canvas data to a matrix form
+      function convertToMatrixForm() {
+        // Get the hexadecimal color data of the canvas
+        const hexData = convertCanvasDataToHex();
 
-        // Okay, here comes the real magic! We'll create a special link for the download
+        // Create a matrix array to store the data
+        const matrix = [];
+
+        // Split the hexadecimal color data into 16x16 rows and form the matrix
+        for (let i = 0; i < 34; i++) {
+          matrix[i] =
+            "0x" + hexData.slice(i * 16, (i + 1) * 16).join(", 0x") + ", ";
+        }
+
+        return matrix.join("\n"); // Join the rows of the matrix with a newline character
+      }
+
+      // Function to trigger the download of the matrix data
+      function downloadMatrixData() {
+        // Convert the canvas data to matrix form
+        var matrixData = convertToMatrixForm();
+
+        // Create a new link element to trigger the download
         var downloadLink = document.createElement("a");
 
-        // This link carries the enchanting hex colors as plain text
-        downloadLink.href = "data:text/plain," + encodeURIComponent(hexData);
+        // Create a Blob containing the matrix data in text/plain format
+        var blob = new Blob([matrixData], { type: "text/plain" });
 
-        // You know what's cool? We give our art a memorable name for the download
-        downloadLink.download = "ZYGAL_Canvas_Assignment.txt";
+        // Set the URL of the Blob as the link's href and set the filename for download
+        downloadLink.href = URL.createObjectURL(blob);
+        downloadLink.download = "ZYGAL_Canvas_Matrix.txt";
 
-        // Alright! Time to spread the magic! We'll click the link and start the download
+        // Simulate a click on the link to trigger the download
         downloadLink.click();
       }
 
-      // Let's start this adventure! We'll unveil the mighty "A" on the canvas right away
+      // Draw the letter "A" on the canvas when the page loads
       drawCharacterOnCanvas();
     </script>
   </body>
 </html>
-
-<!--  Thanks for reading comments I hope it makes it easier for you  to understand the snippet. ! -->
