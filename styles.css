@@ -12,6 +12,7 @@ body {
   margin-bottom: 10px;
 }
 
+
 #canvasWrapper {
   display: flex;
   flex-direction: column;
